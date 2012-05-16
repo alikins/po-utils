@@ -1,0 +1,11 @@
+misc assorted motley uneven untested undocumented set of
+tools and utils for deadling with .po files in various
+ways. 
+
+Most require polib from http://pypi.python.org/pypi/polib
+
+Hard coded paths, arbitrary output formats, total
+lack of error handling, these are all things
+included for FREE!
+
+Consider them GPLv3
