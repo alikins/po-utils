@@ -1,5 +1,5 @@
 misc assorted motley uneven untested undocumented set of
-tools and utils for deadling with .po files in various
+tools and utils for dealing with .po files in various
 ways. 
 
 Most require polib from http://pypi.python.org/pypi/polib
