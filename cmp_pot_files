@@ -1,5 +1,5 @@
-#!/usr/bin/python
-
+#!/usr/bin/env python
+#
 # require's polib from https://bitbucket.org/izi/polib/wiki/Home
 #
 #   python-polib rpm or "easy_install polib"
@@ -7,7 +7,13 @@
 #  cmp_pot_files po/old_keys.pot po/new_keys.pot
 #
 #  Should show any new strings between the two revs
-
+#  example:
+#  + this is a string in  new_keys
+#  - this is a string that was in old_keys
+#
+#  Author: Adrian Likins <alikins@redhat.com>
+#  License: GPLv3+
+#
 import polib
 import sys
 
@@ -17,24 +23,17 @@ pot_file2 = sys.argv[2]
 p1 = polib.pofile(pot_file1)
 p2 = polib.pofile(pot_file2)
 
-strings1 = {}
-for e1 in p1.untranslated_entries():
-    strings1[e1.msgid] = e1
-
-strings2 = {}
-for e2 in p2.untranslated_entries():
-    strings2[e2.msgid] = e2
+# all pot msgid's are "untranslated"
+msgid_set_1 = set([msg.msgid for msg in p1.untranslated_entries()])
+msgid_set_2 = set([msg.msgid for msg in p2.untranslated_entries()])
 
 
-for msg in strings1:
-    if msg not in strings2:
-        print "+", strings1[msg].msgid
-#        print
-#        print strings1[msg].occurrences
-        #print dir(strings1[msg])
+added_msgid_set = msgid_set_1 - msgid_set_2
+missing_msgid_set = msgid_set_2 - msgid_set_1
 
+for msg in added_msgid_set:
+    print "+", msg
 
-for msg in strings2:
-    if msg not in strings1:
-        print "-", strings2[msg].msgid
+for msg in missing_msgid_set:
+    print "-", msg
 
